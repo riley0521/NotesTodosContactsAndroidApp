@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">NotesTodosContactsApp</string>
+    <string name="notes">Notes</string>
+    <string name="todo">Todo</string>
+    <string name="contacts">Contacts</string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
+    <string name="color">Color</string>
+    <string name="ascending">Ascending</string>
+    <string name="descending">Descending</string>
+    <string name="delete">Delete</string>
+    <string name="add_note">Add Note</string>
+    <string name="your_notes">Your notes</string>
+    <string name="filter">Filter</string>
+    <string name="note_deleted">Note deleted</string>
+    <string name="undo">Undo</string>
+    <string name="hint_title">Choose a title</string>
+    <string name="hint_description">Write your note</string>
+    <string name="unknown_error">Unknown error occurred.</string>
+    <string name="save_note">Save note</string>
+</resources>
