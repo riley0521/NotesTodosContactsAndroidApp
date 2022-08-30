@@ -1,4 +1,4 @@
-package com.rpfcoding.notestodoscontactsapp
+package com.rpfcoding.notestodoscontactsapp.core.presentation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
@@ -12,10 +12,9 @@ import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.navigate
-import com.rpfcoding.notestodoscontactsapp.destinations.ContactScreenDestination
-import com.rpfcoding.notestodoscontactsapp.destinations.NotesScreenDestination
-import com.rpfcoding.notestodoscontactsapp.destinations.TodoScreenDestination
-import com.rpfcoding.notestodoscontactsapp.destinations.TypedDestination
+import com.rpfcoding.notestodoscontactsapp.NavGraphs
+import com.rpfcoding.notestodoscontactsapp.appCurrentDestinationAsState
+import com.rpfcoding.notestodoscontactsapp.destinations.*
 
 @RootNavGraph(start = true)
 @Destination
@@ -32,7 +31,10 @@ fun BottomNavScreen() {
     }
 
     when (navBackStackEntry?.destination?.route) {
-        NotesScreenDestination.route, TodoScreenDestination.route, ContactScreenDestination.route -> {
+        NotesScreenDestination.route,
+        TodoScreenDestination.route,
+        ContactScreenDestination.route,
+        SettingsScreenDestination.route -> {
             isBottomBarVisible = true
         }
         else -> {

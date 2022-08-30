@@ -9,7 +9,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rpfcoding.notestodoscontactsapp.R
-import com.rpfcoding.notestodoscontactsapp.UiText
+import com.rpfcoding.notestodoscontactsapp.core.presentation.UiText
 import com.rpfcoding.notestodoscontactsapp.note.domain.model.InvalidNoteException
 import com.rpfcoding.notestodoscontactsapp.note.domain.model.Note
 import com.rpfcoding.notestodoscontactsapp.note.domain.use_case.NoteUseCases

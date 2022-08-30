@@ -1,4 +1,4 @@
-package com.rpfcoding.notestodoscontactsapp
+package com.rpfcoding.notestodoscontactsapp.core.presentation
 
 import android.content.Context
 import androidx.annotation.StringRes
