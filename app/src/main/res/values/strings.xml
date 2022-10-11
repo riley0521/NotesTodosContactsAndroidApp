@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">NotesTodosContactsApp</string>
     <string name="notes">Notes</string>
     <string name="todo">Todo</string>
@@ -23,10 +23,24 @@
     <string name="password_hidden">Password is hidden</string>
     <string name="hint_email">Email</string>
     <string name="btn_sign_in">SIGN IN</string>
-    <string name="email_not_empty">Email should not be empty.</string>
+    <string name="email_not_empty">Email should not be blank.</string>
     <string name="invalid_email">Invalid email.</string>
     <string name="password_not_blank">Password should not be blank.</string>
     <string name="recovery_email_sent">Recovery instructions was sent to your email.</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="hint_password">Password</string>
+    <string name="confirm_password_not_blank">Confirm password should not be blank.</string>
+    <string name="password_not_match">Password does not match.</string>
+    <string name="create_account">Create account</string>
+    <string name="sign_in">Sign in to your account</string>
+    <string name="btn_create_account">CREATE ACCOUNT</string>
+    <string name="hint_confirm_password">Confirm password</string>
+    <string name="card_sign_in">Sign in</string>
+    <string name="card_create_account">Create account</string>
+    <string name="card_sign_out">Sign out</string>
+    <string name="card_delete_account">Delete my account</string>
+    <string name="confirm_delete_account">Are you sure want to delete your account?</string>
+    <string name="dialog_confirm">CONFIRM</string>
+    <string name="dialog_cancel">CANCEL</string>
+    <string name="confirm_sign_out" tools:ignore="ExtraTranslation">Are you sure you want to sign out?</string>
 </resources>

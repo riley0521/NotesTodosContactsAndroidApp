@@ -1,6 +1,6 @@
 package com.rpfcoding.notestodoscontactsapp.auth.presentation.login
 
-import com.rpfcoding.notestodoscontactsapp.core.presentation.UiText
+import com.rpfcoding.notestodoscontactsapp.core.util.UiText
 
 data class LoginState(
     val email: String = "",

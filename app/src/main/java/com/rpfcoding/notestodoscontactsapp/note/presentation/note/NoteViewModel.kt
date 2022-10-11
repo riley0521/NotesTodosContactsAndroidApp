@@ -5,19 +5,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rpfcoding.notestodoscontactsapp.note.domain.model.Note
-import com.rpfcoding.notestodoscontactsapp.note.domain.use_case.NoteUseCases
-import com.rpfcoding.notestodoscontactsapp.note.domain.util.NoteOrder
+import com.rpfcoding.notestodoscontactsapp.core.domain.model.Note
+import com.rpfcoding.notestodoscontactsapp.core.domain.repository.UserRepository
+import com.rpfcoding.notestodoscontactsapp.note.use_case.NoteUseCases
+import com.rpfcoding.notestodoscontactsapp.core.util.NoteOrder
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class NoteViewModel @Inject constructor(
-    private val noteUseCases: NoteUseCases
+    private val noteUseCases: NoteUseCases,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     var state by mutableStateOf(NotesState())
@@ -31,13 +31,13 @@ class NoteViewModel @Inject constructor(
 
     private fun fetchNotes(order: NoteOrder) {
         viewModelScope.launch {
-            noteUseCases.getAllNotes(order)
-                .onEach { notes ->
-                    state = state.copy(
-                        notes = notes,
-                        noteOrder = order
-                    )
-                }.launchIn(viewModelScope)
+            if(userRepository.getToken().first().isBlank()) {
+                // TODO: Send channel to inform user it needs to sign in.
+            } else {
+                state = state.copy(
+                    notes = noteUseCases.getAllNotes(order)
+                )
+            }
         }
     }
 
@@ -45,8 +45,10 @@ class NoteViewModel @Inject constructor(
         when (event) {
             is NotesEvent.DeleteNote -> {
                 viewModelScope.launch {
-                    noteUseCases.deleteNote(event.note.id)
-                    recentlyDeletedNote = event.note
+                    if(noteUseCases.deleteNote(event.note.id)) {
+                        recentlyDeletedNote = event.note
+                        fetchNotes(state.noteOrder)
+                    }
                 }
             }
             is NotesEvent.Order -> {
@@ -60,8 +62,10 @@ class NoteViewModel @Inject constructor(
             }
             NotesEvent.RestoreNote -> {
                 viewModelScope.launch {
-                    noteUseCases.insertNote(recentlyDeletedNote ?: return@launch)
-                    recentlyDeletedNote = null
+                    if(noteUseCases.upsertNote(recentlyDeletedNote ?: return@launch)) {
+                        recentlyDeletedNote = null
+                        fetchNotes(state.noteOrder)
+                    }
                 }
             }
             NotesEvent.ToggleOrderSection -> {

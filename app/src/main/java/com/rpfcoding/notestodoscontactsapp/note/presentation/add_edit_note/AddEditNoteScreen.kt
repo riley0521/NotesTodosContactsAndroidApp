@@ -26,7 +26,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.rpfcoding.notestodoscontactsapp.R
-import com.rpfcoding.notestodoscontactsapp.note.domain.model.Note
+import com.rpfcoding.notestodoscontactsapp.core.domain.model.Note
+import com.rpfcoding.notestodoscontactsapp.core.util.Constants
 import com.rpfcoding.notestodoscontactsapp.note.presentation.add_edit_note.components.TransparentHintTextField
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -34,6 +35,7 @@ import kotlinx.coroutines.launch
 @Destination
 @Composable
 fun AddEditNoteScreen(
+    @Suppress("unused") // Because we are calling this note in the viewModel
     note: Note?,
     noteColor: Int,
     viewModel: AddEditNoteViewModel = hiltViewModel(),
@@ -64,7 +66,7 @@ fun AddEditNoteScreen(
     LaunchedEffect(key1 = true) {
         viewModel.eventChannel.collectLatest { event ->
             when(event) {
-                AddEditNoteViewModel.UiEvent.SaveNote -> {
+                AddEditNoteViewModel.UiEvent.SuccessSaveNote -> {
                     navigator.popBackStack()
                 }
                 is AddEditNoteViewModel.UiEvent.ShowErrorMessage -> {
@@ -104,7 +106,7 @@ fun AddEditNoteScreen(
                     .padding(8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Note.noteColors.forEach { color ->
+                Constants.noteColors.forEach { color ->
                     val colorInt = color.toArgb()
 
                     Box(

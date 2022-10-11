@@ -1,6 +1,6 @@
 package com.rpfcoding.notestodoscontactsapp.note.presentation.add_edit_note
 
-import com.rpfcoding.notestodoscontactsapp.core.presentation.UiText
+import com.rpfcoding.notestodoscontactsapp.core.util.UiText
 
 data class NoteTextFieldState(
     val text: String = "",

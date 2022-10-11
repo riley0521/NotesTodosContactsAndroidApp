@@ -9,10 +9,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rpfcoding.notestodoscontactsapp.R
-import com.rpfcoding.notestodoscontactsapp.core.presentation.UiText
-import com.rpfcoding.notestodoscontactsapp.note.domain.model.InvalidNoteException
-import com.rpfcoding.notestodoscontactsapp.note.domain.model.Note
-import com.rpfcoding.notestodoscontactsapp.note.domain.use_case.NoteUseCases
+import com.rpfcoding.notestodoscontactsapp.core.domain.model.Note
+import com.rpfcoding.notestodoscontactsapp.core.util.Constants
+import com.rpfcoding.notestodoscontactsapp.core.util.InvalidNoteException
+import com.rpfcoding.notestodoscontactsapp.core.util.UiText
+import com.rpfcoding.notestodoscontactsapp.note.use_case.NoteUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -39,7 +40,7 @@ class AddEditNoteViewModel @Inject constructor(
     )
         private set
 
-    var noteColor by mutableStateOf(Note.noteColors.random().toArgb())
+    var noteColor by mutableStateOf(Constants.noteColors.random().toArgb())
         private set
 
     private val _eventChannel = Channel<UiEvent>()
@@ -96,18 +97,17 @@ class AddEditNoteViewModel @Inject constructor(
                     try {
                         val note = savedStateHandle.get<Note>("note")
 
-                        noteUseCases.insertNote(
+                        noteUseCases.upsertNote(
                             Note(
                                 title = noteTitle.text,
                                 description = noteDescription.text,
                                 color = noteColor,
-                                createdAt = "",
                                 id = note?.id ?: ""
                             )
                         )
 
                         _eventChannel.send(
-                            UiEvent.SaveNote
+                            UiEvent.SuccessSaveNote
                         )
                     } catch (e: InvalidNoteException) {
                         if (e.message != null) {
@@ -127,7 +127,7 @@ class AddEditNoteViewModel @Inject constructor(
 
     sealed class UiEvent {
         data class ShowErrorMessage(val message: UiText) : UiEvent()
-        object SaveNote : UiEvent()
+        object SuccessSaveNote : UiEvent()
     }
 
     sealed class AddEditNoteEvent {

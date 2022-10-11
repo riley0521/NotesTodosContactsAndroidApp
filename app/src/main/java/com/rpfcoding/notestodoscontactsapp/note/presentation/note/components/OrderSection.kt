@@ -6,8 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.rpfcoding.notestodoscontactsapp.R
-import com.rpfcoding.notestodoscontactsapp.note.domain.util.NoteOrder
-import com.rpfcoding.notestodoscontactsapp.note.domain.util.OrderType
+import com.rpfcoding.notestodoscontactsapp.core.util.NoteOrder
+import com.rpfcoding.notestodoscontactsapp.core.util.OrderType
 
 @Composable
 fun OrderSection(

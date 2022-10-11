@@ -23,15 +23,15 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
 import com.rpfcoding.notestodoscontactsapp.R
-import com.rpfcoding.notestodoscontactsapp.note.domain.model.Note
+import com.rpfcoding.notestodoscontactsapp.core.domain.model.Note
 
 @Composable
 fun NoteItem(
+    modifier: Modifier = Modifier,
     note: Note,
     cornerRadius: Dp = 10.dp,
     cutCornerSize: Dp = 30.dp,
     onDeleteClick: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier

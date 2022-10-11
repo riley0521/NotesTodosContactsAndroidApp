@@ -1,5 +1,6 @@
 package com.rpfcoding.notestodoscontactsapp.note.presentation.add_edit_note.components
 
+import androidx.compose.animation.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.BasicTextField
@@ -13,14 +14,14 @@ import androidx.compose.ui.text.TextStyle
 
 @Composable
 fun TransparentHintTextField(
+    modifier: Modifier = Modifier,
     text: String,
     hint: String,
     isHintVisible: Boolean = true,
     onValueChange: (String) -> Unit,
     textStyle: TextStyle = TextStyle(),
     singleLine: Boolean = false,
-    onFocusChange: (FocusState) -> Unit,
-    modifier: Modifier = Modifier
+    onFocusChange: (FocusState) -> Unit
 ) {
     Box(
         modifier = modifier
@@ -36,7 +37,11 @@ fun TransparentHintTextField(
                     onFocusChange(it)
                 }
         )
-        if(isHintVisible) {
+        AnimatedVisibility(
+            visible = isHintVisible,
+            enter = fadeIn() + slideInHorizontally(),
+            exit = fadeOut() + slideOutHorizontally()
+        ) {
             Text(
                 text = hint,
                 style = textStyle,
